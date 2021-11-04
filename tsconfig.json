@@ -1,0 +1,20 @@
+{
+  "include": [
+    "./shared/", 
+    "./client/src", 
+    "./server/src",
+    "./webpack.*.config.ts"
+  ],
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "typeRoots": ["./shared/types", "./node_modules/@types"]
+  }
+}
