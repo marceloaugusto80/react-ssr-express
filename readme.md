@@ -1,6 +1,7 @@
 # Typescript React SSR with Node Express
 
 **React server side rendering in with Node Express server**
+
 This template has the following main dependencies:
 * [Typescript](https://www.typescriptlang.org/)
 * [Webpack](https://webpack.js.org/)
@@ -12,7 +13,7 @@ This template has the following main dependencies:
 ---
 
 ### Instalation
-1. Clone the repo: `git clone https://github.com/xxx.git`
+1. Clone the repo: `https://github.com/marceloaugusto80/react-ssr-express.git`
 2. Install dependencies: 
 ``` bash
 $ npm install
@@ -35,43 +36,48 @@ $ npm run build
 ```
 
 ### Project structure
-We use the following folder structure to organize the project:
+This project has the following structure:
 
 ```
 root/
+│
 ├─ client/
 │  ├─ src/
 │  │  ├─ resources/
 │  ├─ package.json
 │  ├─ tsconfig.json
+│
 ├─ server/
 │  ├─ src/
 │  ├─ package.json
 │  ├─ tsconfig.json
+│
 ├─ shared/
 │  ├─ types/
+│
 webpack.client.config.ts
 webpack.server.config.ts/
 ```
-##### Compilation output
-After compilation, all output will be available in the `./dist` folder. The server project will be bundled in the `./dist/app.js` file and client files in the `./dist/public/` folder.
+#### Compilation output
+After compilation, all output will be available in the `./dist` folder. The server project will be bundled in the `./dist/app.js` file and client bundles in the `./dist/public/` folder.
 
-##### Webpack configuration
+### Webpack configuration
 As you can see, server and client have one webpack configuration file each and they are located in the project root. It will avoid problems with some plugins and loaders.
-Also, you can see some code duplication in both configuration files. That's because we want to avoid the complexity of factory functions in a template that the main focus is SSR.
+Also, you can see some code duplication in both configuration files. That's to avoid the complexity of factory functions in a template where the main focus is SSR.
 
 
-#### Static assets
-The static files middleware in the server will serve all files from the `public` folder.
+### Static assets
+The serverstatic files middleware will serve all files from the `public` folder.
 
-All files from `client/src/resources` will be copied in the `./dist/public` folder during the compilation, keeping the same structure. So the file `./client/src/resources/images/img1.jpg` will be copied to `./dist/public/images/img1.jpg`. 
+All files from `client/src/resources` will be copied to `./dist/public` folder during the compilation, keeping the same structure. 
+So the file `./client/src/resources/images/img1.jpg` will be copied to `./dist/public/images/img1.jpg`. 
 
 As such, you can reference the image in your client side code like:
 ``` html
 <img src="images/img1.jpg" />
 ```
 
-Another example. To fetch the file `./client/src/resources/data/foo.txt` you can:
+Another example. To fetch the file `./client/src/resources/data/foo.txt` you can do something like this:
 ``` javascript
 fetch("data/foo.txt")
     .then(response => response.text())
@@ -80,8 +86,8 @@ fetch("data/foo.txt")
     })  
     .catch(e => {...})
 ```
-#### Client vs Server side branching
-Out of the box, the global variable `__SERVER__` will be set to true if the code was compiled to target the browser environment.
+### Client vs Server side branching
+Out of the box, the global variable `__SERVER__` will be set to `true` if the code was compiled to target the server (Node) environment. Otherwise, it will have a value of `false`.
 There are other techniques to branch your logic, some of the are used in the [BrowserApiSample.tsx](https://github.com/marceloaugusto80/react-ssr-express/blob/master/client/src/components/BrowserApiSample.tsx) component.
 
 ---
