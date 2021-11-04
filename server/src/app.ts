@@ -15,7 +15,7 @@ const app = express();
 
 
 app.use(express.static(PUBLIC_DIR_PATH, {
-    index: false // we don want the static middleware to server index.html
+    index: false // we don want the static middleware to serve index.html
 }));
 
 
@@ -28,9 +28,13 @@ app.get("*", async (req, res)=> {
         return res.set("content-type", "text/html").status(200).send(ssrContent);
 
     } catch (e) {
-
-        const error = e as Error;
-        return res.status(500).send(error.stack); // IMPORTANT dont send the stack to the client in production!
+        if(__PRODUCTION__) {
+            const error = e as Error;
+            return res.status(500).send(error.stack);
+        }
+        else {
+            console.error(e);
+        }
 
     }
 
