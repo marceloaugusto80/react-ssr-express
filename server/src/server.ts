@@ -1,11 +1,10 @@
 import express from "express";
 import path from "path";
-import { renderReactAppAsync } from "./ssr";
+import { errorMiddleware } from "./errorMiddleware";
+import { reactMiddleware } from "./reactMiddleware";
 
 export function createServer(publicDirAbsolutePath: string) {
     
-    const staticHtmlPath = path.resolve(publicDirAbsolutePath, "index.html");
-
     const server = express();
 
     server.use(express.static(publicDirAbsolutePath, {
@@ -13,25 +12,11 @@ export function createServer(publicDirAbsolutePath: string) {
         index: false
     }));
 
-    server.get("*", async (req, res) => {
+    server.use(reactMiddleware({
+        templateHtmlAbsolutePath: path.resolve(publicDirAbsolutePath, "index.html")
+    }));
 
-        try {
-
-            const ssrContent: string = await renderReactAppAsync(staticHtmlPath, req.url);
-            return res.set("content-type", "text/html").status(200).send(ssrContent);
-
-        } catch (e) { 
-            if (!__PRODUCTION__) {
-                const error = e as Error;
-                return res.status(500).send(error.stack);
-            }
-            else {
-                console.error(e);
-            }
-
-        }
-
-    });
+    server.use(errorMiddleware());
 
     return server;
 }
