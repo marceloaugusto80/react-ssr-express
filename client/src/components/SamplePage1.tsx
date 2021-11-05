@@ -32,7 +32,7 @@ export default class SamplePage1 extends PureComponent<unknown, State> {
 
     UNSAFE_componentWillMount = () => {
         
-        // Logic here will run only in both server and client side.
+        // Logic here will run in both server and client side.
         // This is the only lifecycle method that runs on server.
         // https://reactjs.org/docs/react-component.html#unsafe_componentwillmount
 

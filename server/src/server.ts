@@ -3,6 +3,9 @@ import path from "path";
 import { errorMiddleware } from "./errorMiddleware";
 import { reactMiddleware } from "./reactMiddleware";
 
+// we split the express app definition in a module separated from the entry point module
+// because its easier to parameterize and test.
+
 export function createServer(publicDirAbsolutePath: string) {
     
     const server = express();
