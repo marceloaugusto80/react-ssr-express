@@ -1,15 +1,16 @@
-# Typescript React SSR with Node Express
+# SSR: Typescript + React + Router + Express + Jest
 
-**React server side rendering in with Node Express server**
+**React server side rendering with Node Express server**
 
 This template has the following main dependencies:
 * [Typescript](https://www.typescriptlang.org/)
-* [Webpack](https://webpack.js.org/)
-* [Express](https://expressjs.com/)
 * [React](https://reactjs.org/)
 * [React Router](https://github.com/remix-run/react-router)
-
-
+* [Styled Components](https://styled-components.com/)
+* [Express](https://expressjs.com/)
+* [Webpack](https://webpack.js.org/)
+* [Jest](https://jestjs.io/)
+* [SuperTest](https://www.npmjs.com/package/supertest)
 ---
 
 ### Instalation
@@ -55,6 +56,10 @@ root/
 ├─ shared/
 │  ├─ types/
 │
+├─ __tests__/
+│  ├─ client/
+│  ├─ server/
+│
 webpack.client.config.ts
 webpack.server.config.ts/
 ```
@@ -88,7 +93,7 @@ fetch("data/foo.txt")
 ```
 ### Client vs Server side branching
 Out of the box, the global variable `__SERVER__` will be set to `true` if the code was compiled to target the server (Node) environment. Otherwise, it will have a value of `false`.
-There are other techniques to branch your logic, some of the are used in the [BrowserApiSample.tsx](https://github.com/marceloaugusto80/react-ssr-express/blob/master/client/src/components/BrowserApiSample.tsx) component.
+There are other techniques to branch your logic, some of them are tested in the [SamplePage1](https://github.com/marceloaugusto80/react-ssr-express/blob/master/client/src/components/SamplePage1.tsx) component.
 
 ---
-Any bug or improvement, please let us know.
+Any bug or improvement, please let me know.
