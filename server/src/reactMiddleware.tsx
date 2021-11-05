@@ -26,8 +26,6 @@ interface ReactMiddlewareOptions {
  */
 export function reactMiddleware(options: ReactMiddlewareOptions) {
 
-    console.log("react middlware instantiated.");
-
     return async function (req: Request, res: Response, next: NextFunction) {
         try {
             
