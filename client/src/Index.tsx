@@ -5,11 +5,9 @@ import {BrowserRouter} from "react-router-dom";
 
 function WrappedApp(): JSX.Element {
     return (
-        <div>
-            <BrowserRouter >
-                <App/>
-            </BrowserRouter>
-        </div>
+        <BrowserRouter >
+            <App/>
+        </BrowserRouter>
     );
 }
 

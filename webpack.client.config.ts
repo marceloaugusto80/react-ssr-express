@@ -26,9 +26,7 @@ export default function config(env: any): webpack.Configuration {
         context: path.resolve(__dirname, "client"),
 
         optimization: {
-            splitChunks: {
-                chunks: "all"
-            }
+            splitChunks: false
         },
 
         entry: {

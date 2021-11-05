@@ -32,6 +32,7 @@ export async function renderReactAppAsync(htmlFileAbsolutePath: string, requestU
     // finally, concat both the static html content with our react application content
     // this root div is defined in client/src/index.html
 
+    //const renderedHtml = baseHtml.replace(`<div id="root"></div>`, `<div id="root">${reactContent}</div>`);
     const renderedHtml = staticHtmlContent.replace(`<div id="root"></div>`, `<div id="root">${reactContent}</div>`);
 
     return renderedHtml;

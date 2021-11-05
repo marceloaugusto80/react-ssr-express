@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-export default function StaticContentSample() {
+export default function SamplePage2() {
 
     const [sampleText, setSampleText] = useState("Wait");
     
@@ -24,7 +24,7 @@ export default function StaticContentSample() {
             </div>
             <hr/>
             <h2>The text below was fetched from the server.</h2>
-            <div className="text-sample">{sampleText}</div>
+            <div className="text-sample" suppressHydrationWarning>{sampleText}</div>
         
         </Wrapper>
     )
