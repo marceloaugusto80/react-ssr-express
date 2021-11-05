@@ -72,7 +72,7 @@ Also, you can see some code duplication in both configuration files. That's to a
 
 
 ### Static assets
-The serverstatic files middleware will serve all files from the `public` folder.
+The server static files middleware will serve all files from the `public` folder.
 
 All files from `client/src/resources` will be copied to `./dist/public` folder during the compilation, keeping the same structure. 
 So the file `./client/src/resources/images/img1.jpg` will be copied to `./dist/public/images/img1.jpg`. 
@@ -82,7 +82,7 @@ As such, you can reference the image in your client side code like:
 <img src="images/img1.jpg" />
 ```
 
-Another example. To fetch the file `./client/src/resources/data/foo.txt` you can do something like this:
+Another example. To fetch the file located at `./client/src/resources/data/foo.txt` during development, you can do something like this in your code:
 ``` javascript
 fetch("data/foo.txt")
     .then(response => response.text())
@@ -92,7 +92,7 @@ fetch("data/foo.txt")
     .catch(e => {...})
 ```
 ### Client vs Server side branching
-Out of the box, the global variable `__SERVER__` will be set to `true` if the code was compiled to target the server (Node) environment. Otherwise, it will have a value of `false`.
+The global variable `__SERVER__` will be set to `true` if the code was compiled to target the server (Node) environment. Otherwise, it will have a value of `false`.
 There are other techniques to branch your logic, some of them are tested in the [SamplePage1](https://github.com/marceloaugusto80/react-ssr-express/blob/master/client/src/components/SamplePage1.tsx) component.
 
 ---
