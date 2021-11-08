@@ -18,12 +18,24 @@ export default function config(env: any): webpack.Configuration {
         },
     
         target: "node",
-    
+
         context: path.resolve(__dirname, "server"),
     
         externalsPresets: {
             node: true
         },
+
+        ignoreWarnings: [
+            {
+                /* 
+                * Express compilation issue:
+                * WARNING in ../node_modules/express/lib/view.js 81:13-25 Critical dependency: the request of a dependency is an expression
+                * more at: https://github.com/webpack/webpack/issues/1576
+                */ 
+                module: /express/,
+                message: /Critical\sdependency:\sthe\srequest\sof\sa\sdependency\sis\san\sexpression/,
+            }
+        ],
     
         entry: "./src/app.ts",
     
