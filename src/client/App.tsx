@@ -1,9 +1,9 @@
 import React, { PureComponent, ReactNode } from 'react'
 import { Link, Routes, Route } from 'react-router-dom';
 import styled from "styled-components";
-import HomePage from './components/HomePage';
-import SamplePage1 from './components/SamplePage1';
-import SamplePage2 from './components/SamplePage2';
+import HomePage from './pages/HomePage';
+import SamplePage1 from './pages/SamplePage1';
+import SamplePage2 from './pages/SamplePage2';
 
 /**
  * The root react component for both client side rendering and server side rendering

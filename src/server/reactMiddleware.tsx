@@ -5,8 +5,6 @@ import { StaticRouter } from "react-router-dom/server";
 import fs from "fs";
 import { NextFunction, Request, Response } from "express";
 
-
-
 /**
  * Options for the react ssr middleware.
  */
@@ -16,8 +14,6 @@ interface ReactMiddlewareOptions {
      */
     templateHtmlAbsolutePath: string;
 }
-
-
 
 /**
  * Creates a React Server Side Rendering middleware. Install it right after the static files middleware.

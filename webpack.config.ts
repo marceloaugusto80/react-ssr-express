@@ -2,7 +2,6 @@ import { DefinePlugin, Configuration } from "webpack";
 import path from "path";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import CopyPlugin from "copy-webpack-plugin";
 import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import { merge } from "webpack-merge";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
@@ -65,12 +64,26 @@ function createServerConfig(env: Env): Configuration {
 
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: "app.js"
+            filename: "app.js",
+            publicPath: "./" // file-loader prepends publicPath to the emited url. without this, react will complain about server and client mismatch
         },
 
         module: {
             rules: [
-                { test: /\.tsx?$/, loader: "ts-loader", exclude: /node_modules/ }
+
+                { test: /\.tsx?$/, loader: "ts-loader", exclude: /node_modules/ },
+
+                {
+                    // file-loader config must match client's (except 'emitFile' property)
+                    test: /\.(jpg|png|gif|svg)$/, 
+                    use: { 
+                        loader: "file-loader", 
+                        options: {
+                            outputPath: "images",
+                            name: "[name].[contenthash].[ext]",
+                            emitFile: false 
+                        }}
+                }
             ]
         },
 
@@ -81,7 +94,7 @@ function createServerConfig(env: Env): Configuration {
         ]
 
     }
-}
+} // end server configuration
 
 function createClientConfig(env: Env): Configuration {
 
@@ -117,7 +130,8 @@ function createClientConfig(env: Env): Configuration {
 
         output: {
             path: path.resolve(__dirname, "dist", "public"),
-            filename: env.production ? "js/[name].[chunkhash].js" : "js/[name].js"
+            filename: env.production ? "js/[name].[chunkhash].js" : "[name].js",
+            publicPath: "./"
         },
 
         module: {
@@ -126,6 +140,16 @@ function createClientConfig(env: Env): Configuration {
                     test: /\.tsx?$/,
                     exclude: /node_modules/,
                     use: { loader: "babel-loader", options: babelConfig },
+                },
+
+                {
+                    test: /\.(jpg|png|gif|svg)$/, 
+                    use: { 
+                        loader: "file-loader", 
+                        options: {
+                            outputPath: "images",
+                            name: "[name].[contenthash].[ext]"
+                        }}
                 }
             ]
         },
@@ -137,15 +161,7 @@ function createClientConfig(env: Env): Configuration {
                 template: "./index.html"
             }),
 
-            new CopyPlugin({
-                patterns: [
-                    // copy all assets from the resources folder to the output root
-                    // ex: the file "src/images/foo.png" can be fetched at http://<domain>/images/foo.png
-                    { from: "resources" }
-                ]
-            }),
-
-            env.hot && new ReactRefreshPlugin()
+            (env.hot && new ReactRefreshPlugin()) as any // casting so tsc will stop complaining
 
         ].filter(Boolean),
 
