@@ -11,19 +11,17 @@
   ],
   "scripts": {
     "test": "npx jest",
-    "build:client": "npx webpack -c ./webpack.client.config.ts",
-    "build:client:prod": "npm run build:client -- --env PRODUCTION",
-    "start:client": "npx webpack server -c ./webpack.client.config.ts --env HOT",
-    "build:server": "npx webpack -c ./webpack.server.config.ts",
-    "build:server:prod": "npm run build:server -- --env PRODUCTION",
-    "start:server": "npx concurrently \"npm run build:client -- -w\" \"npm run build:server -- -w\" \"npx nodemon ./dist/app.js\"",
-    "start:server:prod": "npx concurrently \"npm run build:client:prod -- -w\" \"npm run build:server:prod -- -w\" \"npx nodemon ./dist/app.js\"",
-    "build": "npm run build:server:prod && npm run build:client:prod"
+    "build:prod": "npx webpack --env PRODUCTION",
+    "start:client": "npx webpack serve --config-name client --env HOT",
+    "start:server": "npx concurrently \"npx webpack --config-name client -w\" \"npx webpack --config-name server -w\" \"npx nodemon ./dist/app.js\""
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "history": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.0.0"
+    "react-router-dom": "^6.0.0",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.16.0",
@@ -31,10 +29,12 @@
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
+    "@types/express": "^4.17.13",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.15",
     "@types/supertest": "^2.0.11",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.3.1",
@@ -43,6 +43,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "concurrently": "^6.3.0",
     "copy-webpack-plugin": "^9.0.1",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.3.1",
     "nodemon": "^2.0.14",
@@ -51,9 +52,11 @@
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.4.4",
     "webpack": "^5.61.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.4.0"
+    "webpack-dev-server": "^4.4.0",
+    "webpack-merge": "^5.8.0"
   }
 }

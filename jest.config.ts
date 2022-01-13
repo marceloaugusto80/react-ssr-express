@@ -1,7 +1,5 @@
 import {InitialOptions} from "@jest/types/build/Config";
 
-
-
 const options: InitialOptions = {
   
   preset: "ts-jest",
@@ -11,8 +9,7 @@ const options: InitialOptions = {
   testTimeout: 10000,
   
   roots: [
-    "<rootDir>/__tests__/server",
-    "<rootDir>/__tests__/client"
+    "<rootDir>/tests"
   ],
 
   testRegex: "\.spec\.tsx?$",
@@ -24,7 +21,5 @@ const options: InitialOptions = {
   },
   
 }
-
-
 
 export default options;
