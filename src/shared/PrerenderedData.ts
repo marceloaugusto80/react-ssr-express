@@ -33,9 +33,10 @@ namespace PrerenderData {
         
         if(typeof window == "undefined" || !window.prerenderData) return null;
         
+        if(disposeData)  window.prerenderData = null;
+        
         const data = window.prerenderData as T;
         
-        if(disposeData) window.prerenderData = null;
         
         return data;
     }

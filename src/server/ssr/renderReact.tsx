@@ -4,19 +4,19 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import fs from "fs";
 import { PrerenderData } from "shared/PrerenderedData";
+import configuration from "server/configuration";
 
 /**
  * Renders the react App as a html string.
  * @param url The render url. It will be injected in the react router.
- * @param templateHtmlAbsolutePath The absolute path to the tremplate html where react will be injected into.
  * @param prerenderedObject An object created in the server that can be accessed in the client side.
  * @returns A html string;
  */
-export async function renderReactAsync<T>(url: string, templateHtmlAbsolutePath: string, prerenderedObject?: T) {
+export async function renderReactAsync<T>(url: string, prerenderedObject?: T) {
 
      // read the html template file
 
-     let staticHtmlContent = await fs.promises.readFile(templateHtmlAbsolutePath, { encoding: "utf-8" });
+     let staticHtmlContent = await fs.promises.readFile(configuration.htmlTemplateFilePath, { encoding: "utf-8" });
 
      // inject prerender data into the dom
  

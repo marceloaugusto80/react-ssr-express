@@ -32,4 +32,15 @@ describe("Server requests", ()=> {
     
     });
 
+    
+    test("test sample-page-1 route", async () => {
+    
+        const response = await request(server).get("/sample-page-1");
+    
+        expect(response.statusCode).toBe(200);
+        expect(response.headers["content-type"]).toMatch(/text\/html/);
+        expect(response.text).toMatch(/<h1>Home<\/h1>/);
+    
+    });
+
 });

@@ -4,39 +4,31 @@ import styled from "styled-components";
 import HomePage from './pages/HomePage';
 import SamplePage1 from './pages/SamplePage1';
 import SamplePage2 from './pages/SamplePage2';
-import { PrerenderedContext } from './PrerenderedContext';
-import {PrerenderData} from "shared/PrerenderedData";
-
 
 /** * The root react component for both client side rendering and server side rendering */
 export default function App() {
 
-    const prerenderData = PrerenderData.readFromDom(true);
-
     return (
         <StrictMode>
+            <Wrapper>
 
-            <PrerenderedContext.Provider value={{data: prerenderData}}>
-                <Wrapper>
+                <div className="header">React SSR Template</div>
 
-                    <div className="header">React SSR Template</div>
+                <div className="sidebar">
+                    <Link to="/">Home</Link>
+                    <Link to="sample-page-1">Sample page 1</Link>
+                    <Link to="sample-page2">Sample page 2</Link>
+                </div>
 
-                    <div className="sidebar">
-                        <Link to="/">Home</Link>
-                        <Link to="sample-page-1">Sample page 1</Link>
-                        <Link to="sample-page2">Sample page 2</Link>
-                    </div>
+                <div className="content">
+                    <Routes>
+                        <Route path="/sample-page-1" element={<SamplePage1 />} />
+                        <Route path="/sample-page2" element={<SamplePage2 />} />
+                        <Route path="/" element={<HomePage />} />
+                    </Routes>
+                </div>
 
-                    <div className="content">
-                        <Routes>
-                            <Route path="/sample-page-1" element={<SamplePage1 />} />
-                            <Route path="/sample-page2" element={<SamplePage2 />} />
-                            <Route path="/" element={<HomePage />} />
-                        </Routes>
-                    </div>
-
-                </Wrapper>
-            </PrerenderedContext.Provider>
+            </Wrapper>
         </StrictMode>
     );
 

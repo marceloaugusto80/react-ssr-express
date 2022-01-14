@@ -1,12 +1,11 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { PrerenderedContext } from 'client/PrerenderedContext';
 import { ExampleModel } from 'shared/models';
+import { PrerenderData } from 'shared/PrerenderedData';
 
 export default function SamplePage1() {
 
-    const prerenderedModel = useContext(PrerenderedContext) as ExampleModel;
-    const [model, setModel] = useState(prerenderedModel);
+    const [model, setModel] = useState(PrerenderData.readFromDom<ExampleModel>(true));
 
     useEffect(() => {
         
