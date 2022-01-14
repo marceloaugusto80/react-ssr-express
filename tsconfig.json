@@ -1,23 +1,19 @@
 {
-  "include": [
-    "./shared/", 
-    "./client/src", 
-    "./server/src",
-    "./__tests__/",
-    "./webpack.*.config.ts", 
-    "jest.config.ts"  
-  ],
+  "exclude": ["node_modules", "tests"],
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
+    "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
-    "noImplicitAny": false,
-    "allowJs": true,
-    "typeRoots": ["./shared/types", "./node_modules/@types"],
-    "outDir": "./out"
+    "baseUrl": "src",
+    "paths": {
+      "client/*": ["client/*"],
+      "shared/*": ["shared/*"],
+      "server/*": ["server/*"]
+    }
   }
 }

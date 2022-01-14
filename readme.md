@@ -1,6 +1,6 @@
 # SSR: Typescript + React + Router + Express + Jest
 
-**React server side rendering with Node Express server**
+**React server side rendering with persistent server data**
 
 This template has the following main dependencies:
 * [Typescript](https://www.typescriptlang.org/)
@@ -31,69 +31,33 @@ $ npm run start:server
 ``` bash
 $ npm run start:client
 ```
-* build both client and server for production:
+* build the application for production:
 ``` bash
-$ npm run build
+$ npm run build:prod
+```
+* test:
+``` bash
+$ npm test
 ```
 
-### Project structure
-This project has the following structure:
-
-```
-root/
-│
-├─ client/
-│  ├─ src/
-│  │  ├─ resources/
-│  ├─ package.json
-│  ├─ tsconfig.json
-│
-├─ server/
-│  ├─ src/
-│  ├─ package.json
-│  ├─ tsconfig.json
-│
-├─ shared/
-│  ├─ types/
-│
-├─ __tests__/
-│  ├─ client/
-│  ├─ server/
-│
-webpack.client.config.ts
-webpack.server.config.ts/
-```
 #### Compilation output
-After compilation, all output will be available in the `./dist` folder. The server project will be bundled in the `./dist/app.js` file and client bundles in the `./dist/public/` folder.
+After compilation, all output will be available in the `./dist` folder. The server logic will be bundled in the `./dist/app.js` file and client assets will be in the `./dist/public/` folder.
 
-### Webpack configuration
-As you can see, server and client have one webpack configuration file each and they are located in the project root. It will avoid problems with some plugins and loaders.
-Also, you can see some code duplication in both configuration files. That's to avoid the complexity of factory functions in a template where the main focus is SSR.
-
-
-### Static assets
-The server static files middleware will serve all files from the `public` folder.
-
-All files from `client/src/resources` will be copied to `./dist/public` folder during the compilation, keeping the same structure. 
-So the file `./client/src/resources/images/img1.jpg` will be copied to `./dist/public/images/img1.jpg`. 
-
-As such, you can reference the image in your client side code like:
-``` html
-<img src="images/img1.jpg" />
-```
-
-Another example. To fetch the file located at `./client/src/resources/data/foo.txt` during development, you can do something like this in your code:
-``` javascript
-fetch("data/foo.txt")
-    .then(response => response.text())
-    .then(text => {
-        // do something with the text
-    })  
-    .catch(e => {...})
-```
 ### Client vs Server side branching
 The global variable `__SERVER__` will be set to `true` if the code was compiled to target the server (Node) environment. Otherwise, it will have a value of `false`.
-There are other techniques to branch your logic, some of them are tested in the [SamplePage1](https://github.com/marceloaugusto80/react-ssr-express/blob/master/client/src/components/SamplePage1.tsx) component.
+
+### Prerendered data
+Check the following modules to see how server side data are passed to the prerendered dom:
+```
+./src/shared/PrerenderData.ts
+./src/client/serverData.ts
+```
+The examples how to use these modules are in:
+```
+./src/server/routing.ts
+./src/client/pages/SamplePage1.tsx
+```
+
 
 ---
 Any bug or improvement, please let me know.
