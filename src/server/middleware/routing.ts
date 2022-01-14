@@ -1,7 +1,8 @@
 import { Express } from "express";
 import { ExampleModel } from "shared/models";
-import { renderReactAsync } from "../ssr/renderReact";
+import { renderReactAsync } from "server/ssr/renderReactAsync";
 
+/** Defines the server routings. */
 export function useRouting(app: Express) {
 
     app.get("/sample-page-1", async (req, res) => {
@@ -11,9 +12,14 @@ export function useRouting(app: Express) {
             message: "This data came from the server"
         };
 
-        const html = await renderReactAsync(req.url, model);
+        try {
+            const html = await renderReactAsync(req.url, model);
+            return res.status(200).contentType("text/html").send(html);
+        }
+        catch {
+            return res.status(500).send("Internal server error");
+        }
 
-        return res.status(200).contentType("text/html").send(html);
 
     });
 

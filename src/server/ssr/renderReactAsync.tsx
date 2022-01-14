@@ -3,8 +3,8 @@ import App from "client/App";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import fs from "fs";
-import { PrerenderData } from "shared/PrerenderedData";
 import configuration from "server/configuration";
+import { PrerenderData } from "shared/PrerenderedData";
 
 /**
  * Renders the react App as a html string.
@@ -18,12 +18,9 @@ export async function renderReactAsync<T>(url: string, prerenderedObject?: T) {
 
      let staticHtmlContent = await fs.promises.readFile(configuration.htmlTemplateFilePath, { encoding: "utf-8" });
 
-     // inject prerender data into the dom
- 
-     if (prerenderedObject) {
-         staticHtmlContent = PrerenderData.saveToDom(prerenderedObject, staticHtmlContent);
-     }
+    // store prerender data, if any
 
+    staticHtmlContent = PrerenderData.saveToDom(prerenderedObject, staticHtmlContent ?? null);
 
     // In SSR, using react-router-dom/BrowserRouter will throw an exception.
     // Instead, we use react-router-dom/server/StaticRouter.
@@ -31,7 +28,7 @@ export async function renderReactAsync<T>(url: string, prerenderedObject?: T) {
 
     const WrappedApp = (
         <StaticRouter location={url}>
-            <App />
+            <App serverData={prerenderedObject ?? null}/>
         </StaticRouter>
     );
 

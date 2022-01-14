@@ -1,36 +1,31 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { ExampleModel } from 'shared/models';
-import { PrerenderData } from 'shared/PrerenderedData';
+import { useServerData } from 'client/serverData';
 
 export default function SamplePage1() {
 
-    const [model, setModel] = useState(PrerenderData.readFromDom<ExampleModel>(true));
-
-    useEffect(() => {
-        
-        //Check if model was already set at server side. if not, make call the api
-        
-        if(!model) {
-            
-            // lets pretend its a api call. 
-            Promise.resolve<ExampleModel>({message: "I'm a fetched data!", id: 33})
-                .then(data => setModel(data))
-                .catch(e => console.log("Ops! I didn't work!"));
-        }
-
-    }, []);
+    // you can check this variable state in the useEffect hook and make an api call if it's null.
+    // that will depends on your requirements.
+    // Mind that this variable will only receive the prerender data if you're navigating here by a common link, not a Router link.
+    const model = useServerData<ExampleModel>();
 
     return (
         <Wrapper>
             <h1>Sample page 1</h1>
             {
                 model &&
-                <p suppressHydrationWarning>{model.message}</p>
+                <p>{model.message}</p>
+            }
+            {
+                !model &&
+                <Fragment>
+                    <p>If you're seeing this, means that you navigated to this page by the BrowserRouter.</p>
+                    <p>If you're running the application server, refresh the page.</p>
+                </Fragment>
             }
         </Wrapper>
     )
-
 }
 
 const Wrapper = styled.div`

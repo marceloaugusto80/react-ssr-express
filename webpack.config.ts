@@ -6,6 +6,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import { merge } from "webpack-merge";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
 interface Env {
     production: boolean;
@@ -92,6 +93,10 @@ function createServerConfig(env: Env): Configuration {
             new CleanWebpackPlugin({
                 cleanOnceBeforeBuildPatterns: ["!public/**"]
             }),
+
+            new DefinePlugin({
+                __Server__: JSON.stringify(true)
+            }),
         ]
 
     }
@@ -160,6 +165,12 @@ function createClientConfig(env: Env): Configuration {
 
             new HtmlWebpackPlugin({
                 template: "./index.html"
+            }),
+
+            new CopyWebpackPlugin({
+                patterns: [
+                    {from: "resources/favicon.ico"}
+                ]
             }),
 
             (env.hot && new ReactRefreshPlugin()) as any // casting so tsc will stop complaining

@@ -1,6 +1,13 @@
 import path from "path";
 
-const configuration = {
+export interface ServerConfig {
+    port: number | string;
+    publicDirPath: string;
+    htmlTemplateFilePath: string;
+}
+
+/** Environment configuration */
+const configuration: ServerConfig = {
 
     port: process.env.PORT ?? 9000,
     

@@ -29,8 +29,11 @@ describe("PrerenderData", () => {
             runScripts: "dangerously"
         }).window as unknown as (Window & typeof globalThis);
     
-        const actual = PrerenderData.readFromDom(true);
+        let actual = PrerenderData.readFromDom(true);
         expect(actual).toEqual(expected);
+
+        actual = PrerenderData.readFromDom();
+        expect(actual).toBeNull();
     
     });
 

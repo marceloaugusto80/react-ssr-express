@@ -7,7 +7,7 @@ import {Request, Response, NextFunction} from "express";
  * 
  * Always put error middlewares last in the request pipeline.
  * 
- * @returns The error middleware.
+ * @returns The error middleware function.
  */
 export function errorMiddleware() {
 

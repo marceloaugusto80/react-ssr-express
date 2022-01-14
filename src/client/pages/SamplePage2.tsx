@@ -1,32 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import sampleImage1 from "../resources/images/sample-image-1.png";
 import sampleImage2 from "../resources/images/sample-image-2.png";
 
 export default function SamplePage2() {
 
-    const [sampleText, setSampleText] = useState("Wait");
-    
-    if(!__SERVER__) {
-        fetch("data/sample-text.txt")
-            .then(resp => resp.text())
-            .then(txt => setSampleText(txt));
-    }
-
     return (
         <Wrapper>
         
-            <h1>Static content sample</h1>
-            
-            <h2>The images below were fetched from the server.</h2>
+            <h1>Sample page 2</h1>
+            <h2>Static content</h2>
+            <p>The images below were fetched from the server.</p>
             <div className="images-sample">
                 <img src={sampleImage1} />
                 <img src={sampleImage2} />
             </div>
-            <hr/>
-            <h2>The text below was fetched from the server.</h2>
-            <div className="text-sample" suppressHydrationWarning>{sampleText}</div>
-        
+
         </Wrapper>
     )
 }
@@ -40,11 +29,5 @@ const Wrapper = styled.div`
         margin: 48px;
         padding: 36px;
     }
-    div.text-sample {
-        margin: 48px;
-        padding: 36px;
-        background-color: #eeeeee;
-        font-style: italic;
-        font-size: 14px;
-    }
+    
 `;

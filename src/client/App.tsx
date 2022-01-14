@@ -4,18 +4,26 @@ import styled from "styled-components";
 import HomePage from './pages/HomePage';
 import SamplePage1 from './pages/SamplePage1';
 import SamplePage2 from './pages/SamplePage2';
+import { ServerDataProvider } from './serverData';
+
+interface Props {
+    /** Data used in the react prerender process. Use only in the server side. */
+    serverData?: unknown;
+}
 
 /** * The root react component for both client side rendering and server side rendering */
-export default function App() {
+export default function App(props: Props) {
 
     return (
-        <StrictMode>
+        <ServerDataProvider value={props ? props.serverData : null}>
+
             <Wrapper>
 
                 <div className="header">React SSR Template</div>
 
                 <div className="sidebar">
                     <Link to="/">Home</Link>
+                    {/* use a common anchor (<a></a>) below if you want this route to always be rendered by the server */}
                     <Link to="sample-page-1">Sample page 1</Link>
                     <Link to="sample-page2">Sample page 2</Link>
                 </div>
@@ -29,11 +37,10 @@ export default function App() {
                 </div>
 
             </Wrapper>
-        </StrictMode>
+        </ServerDataProvider>
     );
 
 }
-
 
 const Wrapper = styled.div`
     font-family: Arial, Helvetica, sans-serif;

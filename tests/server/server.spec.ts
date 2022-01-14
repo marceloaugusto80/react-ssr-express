@@ -1,12 +1,12 @@
 import { createServer } from "../../src/server/server";
 import { Express } from "express";
 import request from "supertest";
-import path from "path";
 
 let server: Express;
 
+
 beforeAll(() => {
-    server = createServer(path.resolve(__dirname, "../_fixtures"));
+    server = createServer();
 })
 
 describe("Server requests", ()=> {
@@ -29,7 +29,6 @@ describe("Server requests", ()=> {
         expect(response.header["content-type"]).toMatch("application\/javascript");
         expect(response.text).toMatch(/console.log\('foo'\);/);
     
-    
     });
 
     
@@ -39,7 +38,7 @@ describe("Server requests", ()=> {
     
         expect(response.statusCode).toBe(200);
         expect(response.headers["content-type"]).toMatch(/text\/html/);
-        expect(response.text).toMatch(/<h1>Home<\/h1>/);
+        expect(response.text).toMatch(/This\sdata\scame\sfrom\sthe\sserver/);
     
     });
 

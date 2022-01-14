@@ -12,7 +12,7 @@ declare const __SERVER__: boolean;
 declare const __PRODUCTION__: boolean;
 
 
-
+// server environment vars
 declare namespace NodeJS {
     interface Process {
         env: {

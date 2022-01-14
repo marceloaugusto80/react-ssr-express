@@ -14,10 +14,14 @@ const options: Config.InitialOptions = {
 
   testRegex: "\.spec\.tsx?$",
 
+  setupFiles: ["<rootDir>/tests/setup.ts"],
+
   globals: {
     // mock injected build variables. See DefinePlugin options on webpack configuration files.
     __PRODUCTION__: true,
-    __SERVER__: true
+    __SERVER__: true,
+    PUBLIC_DIR: "<rootDir>/tests/_fixtures",
+    HTML_TEMPLATE_PATH: "<rootDir>/tests/_fixtures/index.html"
   },
 
   moduleNameMapper: {

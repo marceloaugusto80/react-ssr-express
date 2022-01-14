@@ -1,11 +1,8 @@
-import { createServer } from "./server";
-import path from "path";
+import { createServer } from "server/server";
+import configuration from "server/configuration";
 
-const PORT = process.env.PORT ?? 9000;
-const PUBLIC_DIR_PATH = path.resolve(__dirname, "public");
+const server = createServer();
 
-const server = createServer(PUBLIC_DIR_PATH);
-
-server.listen(PORT, () => {
-    console.log(`Server listening to port ${PORT}`);
+server.listen(configuration.port, () => {
+    console.log(`Server listening to port ${configuration.port}`);
 });
