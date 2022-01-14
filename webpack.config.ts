@@ -136,8 +136,7 @@ function createClientConfig(env: Env): Configuration {
 
         output: {
             path: path.resolve(__dirname, "dist", "public"),
-            filename: env.production ? "js/[name].[chunkhash].js" : "[name].js",
-            publicPath: "./"
+            filename: env.production ? "js/[name].[chunkhash].js" : "js/[name].js",
         },
 
         module: {
