@@ -19,9 +19,7 @@ const options: Config.InitialOptions = {
   globals: {
     // mock injected build variables. See DefinePlugin options on webpack configuration files.
     __PRODUCTION__: true,
-    __SERVER__: true,
-    PUBLIC_DIR: "<rootDir>/tests/_fixtures",
-    HTML_TEMPLATE_PATH: "<rootDir>/tests/_fixtures/index.html"
+    __SERVER__: true
   },
 
   moduleNameMapper: {

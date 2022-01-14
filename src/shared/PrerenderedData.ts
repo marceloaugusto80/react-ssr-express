@@ -25,8 +25,8 @@ namespace PrerenderData {
     }
 
     /**
-     * In the client side, reads any arbitrary object injected in the server side.
-     * @param disposeData True if you want to clear the data after reading it. False, otherwise.
+     * In the client side, reads any arbitrary object injected by the server.
+     * @param disposeData True if you want to save some memory and clear the data after reading it. False, otherwise.
      * @returns The data, if any.
      */    
     export function readFromDom<T>(disposeData?: boolean): T | null {

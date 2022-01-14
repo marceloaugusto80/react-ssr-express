@@ -19,8 +19,6 @@ export function useRouting(app: Express) {
         catch {
             return res.status(500).send("Internal server error");
         }
-
-
     });
 
     /**

@@ -6,7 +6,7 @@ export interface ServerConfig {
     htmlTemplateFilePath: string;
 }
 
-/** Environment configuration */
+/** Environment configuration. This can be adapted to use a json file. */
 const configuration: ServerConfig = {
 
     port: process.env.PORT ?? 9000,
