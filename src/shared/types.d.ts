@@ -1,3 +1,8 @@
+declare module "*.jpg";
+declare module "*.png";
+declare module "*.gif";
+declare module "*.svg";
+
 // Variables here are injected via webpack's DefinePlugin.
 
 /** Indicates we are in a server (node) environment. */

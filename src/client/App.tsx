@@ -1,39 +1,45 @@
-import React, { PureComponent, ReactNode } from 'react'
+import React, { StrictMode } from 'react'
 import { Link, Routes, Route } from 'react-router-dom';
 import styled from "styled-components";
 import HomePage from './pages/HomePage';
 import SamplePage1 from './pages/SamplePage1';
 import SamplePage2 from './pages/SamplePage2';
+import { PrerenderedContext } from './PrerenderedContext';
+import {PrerenderData} from "shared/PrerenderedData";
 
-/**
- * The root react component for both client side rendering and server side rendering
- */
-export default class App extends PureComponent {
 
-    render(): ReactNode {
-        return (
+/** * The root react component for both client side rendering and server side rendering */
+export default function App() {
 
-            <Wrapper>
+    const prerenderData = PrerenderData.readFromDom(true);
 
-                <div className="header">React SSR Template</div>
+    return (
+        <StrictMode>
 
-                <div className="sidebar">
-                    <Link to="/">Home</Link>
-                    <Link to="sample-page-1">Sample page 1</Link>
-                    <Link to="sample-page2">Sample page 2</Link>
-                </div>
+            <PrerenderedContext.Provider value={{data: prerenderData}}>
+                <Wrapper>
 
-                <div className="content">
-                    <Routes>
-                        <Route path="/sample-page-1" element={<SamplePage1 />} />
-                        <Route path="/sample-page2" element={<SamplePage2 />} />
-                        <Route path="/" element={<HomePage />} />
-                    </Routes>
-                </div>
+                    <div className="header">React SSR Template</div>
 
-            </Wrapper>
-        );
-    }
+                    <div className="sidebar">
+                        <Link to="/">Home</Link>
+                        <Link to="sample-page-1">Sample page 1</Link>
+                        <Link to="sample-page2">Sample page 2</Link>
+                    </div>
+
+                    <div className="content">
+                        <Routes>
+                            <Route path="/sample-page-1" element={<SamplePage1 />} />
+                            <Route path="/sample-page2" element={<SamplePage2 />} />
+                            <Route path="/" element={<HomePage />} />
+                        </Routes>
+                    </div>
+
+                </Wrapper>
+            </PrerenderedContext.Provider>
+        </StrictMode>
+    );
+
 }
 
 

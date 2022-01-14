@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import sampleImage1 from "../resources/images/sample-image-1.png";
 import sampleImage2 from "../resources/images/sample-image-2.png";
-import sampleImage3 from "../resources/images/sample-image-3.png";
 
 export default function SamplePage2() {
 

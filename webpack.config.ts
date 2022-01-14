@@ -1,4 +1,5 @@
 import { DefinePlugin, Configuration } from "webpack";
+import "webpack-dev-server";
 import path from "path";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";

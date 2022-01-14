@@ -6,13 +6,14 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
+    "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
-    "noImplicitAny": false,
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
       "client/*": ["client/*"],
       "shared/*": ["shared/*"],
+      "server/*": ["server/*"]
     }
   }
 }

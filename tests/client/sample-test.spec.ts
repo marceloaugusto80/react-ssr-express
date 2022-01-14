@@ -4,9 +4,13 @@
 
 // put your imports here, after jest-environemnt pragma
 
-test("sample test", () => {
-
-    expect(window).toBeDefined();
+describe("Sample", () => {
+    
+    test("sample test", () => {
+    
+        expect(window).toBeDefined();
+    
+    });
 
 });
 

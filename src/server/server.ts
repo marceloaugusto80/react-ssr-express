@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
-import { errorMiddleware } from "./errorMiddleware";
-import { reactMiddleware } from "./reactMiddleware";
+import { errorMiddleware } from "server/middleware/errorMiddleware";
+import { reactMiddleware } from "server/middleware/reactMiddleware";
 
 // we split the express app definition in a module separated from the entry point module
 // because its easier to parameterize and test.
@@ -16,7 +16,7 @@ export function createServer(publicDirAbsolutePath: string) {
     }));
 
     server.use(reactMiddleware({
-        templateHtmlAbsolutePath: path.resolve(publicDirAbsolutePath, "index.html")
+        templateHtmlAbsolutePath: path.join(publicDirAbsolutePath, "index.html")
     }));
 
     server.use(errorMiddleware());
