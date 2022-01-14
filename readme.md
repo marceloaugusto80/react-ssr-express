@@ -1,6 +1,6 @@
 # SSR: Typescript + React + Router + Express + Jest
 
-**React server side rendering with Node Express server**
+**React server side rendering with persistent server data**
 
 This template has the following main dependencies:
 * [Typescript](https://www.typescriptlang.org/)
