@@ -21,7 +21,7 @@ export default function SamplePage1() {
                 !model &&
                 <Fragment>
                     <p>If you're seeing this, means that you navigated to this page by the BrowserRouter.</p>
-                    <p>If you're running the application server, refresh the page.</p>
+                    <p>If you're running the application server, refresh the page to receive a ssr version of it.</p>
                 </Fragment>
             }
         </Wrapper>

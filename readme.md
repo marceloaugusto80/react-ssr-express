@@ -46,15 +46,15 @@ After compilation, all output will be available in the `./dist` folder. The serv
 ### Client vs Server side branching
 The global variable `__SERVER__` will be set to `true` if the code was compiled to target the server (Node) environment. Otherwise, it will have a value of `false`.
 
-### Prerendered data
-Check the following modules to see how server side data are passed to the prerendered dom:
+### Prerendered data persistence
+Check the following modules to see how server side data are passed and persisted in the prerendered dom:
 ```
 ./src/shared/PrerenderData.ts
 ./src/client/serverData.ts
 ```
 The examples how to use these modules are in:
 ```
-./src/server/routing.ts
+./src/server/middleware/routing.ts
 ./src/client/pages/SamplePage1.tsx
 ```
 
