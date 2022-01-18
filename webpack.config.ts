@@ -16,8 +16,6 @@ interface Env {
 function createBaseConfig(env: Env): Configuration {
     return {
 
-
-
         mode: env.production ? "production" : "development",
 
         devtool: env.production ? false : "source-map",
@@ -30,7 +28,6 @@ function createBaseConfig(env: Env): Configuration {
         plugins: [
 
             new DefinePlugin({
-                __SERVER__: JSON.stringify(true),
                 __PRODUCTION__: JSON.stringify(env.production),
             })
         ]
@@ -170,6 +167,10 @@ function createClientConfig(env: Env): Configuration {
                 patterns: [
                     {from: "resources/favicon.ico"}
                 ]
+            }),
+
+            new DefinePlugin({
+                __SERVER__: JSON.stringify(false),
             }),
 
             (env.hot && new ReactRefreshPlugin()) as any // casting so tsc will stop complaining
