@@ -3,24 +3,25 @@ import App from "client/App";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import fs from "fs";
-import configuration from "server/configuration";
+import {HTML_TEMPLATE_PATH} from "server/configuration";
 import { PrerenderData } from "shared/PrerenderedData";
+import {ServerStyleSheet} from "styled-components";
 
 /**
  * Renders the react App as a html string.
- * @param url The render url. It will be injected in the react router.
+ * @param url The render url. It will be injected in the react router so it can render the corresponding route.
  * @param prerenderedObject An object created in the server that can be accessed in the client side.
  * @returns A html string;
  */
-export async function renderReactAsync<T>(url: string, prerenderedObject?: T) {
+export async function renderReactAsync(url: string, prerenderedObject?: unknown) {
 
      // read the html template file
 
-     let staticHtmlContent = await fs.promises.readFile(configuration.htmlTemplateFilePath, { encoding: "utf-8" });
+     const staticHtmlContent = await fs.promises.readFile(HTML_TEMPLATE_PATH, { encoding: "utf-8" });
 
-    // store prerender data, if any
+    // create an element to store server side data
 
-    staticHtmlContent = PrerenderData.saveToDom(prerenderedObject, staticHtmlContent ?? null);
+    const dataElement = PrerenderData.saveToDom(prerenderedObject);
 
     // In SSR, using react-router-dom/BrowserRouter will throw an exception.
     // Instead, we use react-router-dom/server/StaticRouter.
@@ -32,13 +33,44 @@ export async function renderReactAsync<T>(url: string, prerenderedObject?: T) {
         </StaticRouter>
     );
 
-    // renders the react application as a string to inject into the html template.
+    /*
+        render the react html content and the styled-component style sheet as string.
+        without prerendering styled-components, the page will flash a styleless version of it
+     */
 
-    const reactContent = renderToString(WrappedApp);
+    const [reactContent, styleTags] = renderToStringWithStyles(WrappedApp);
 
-    // finally combine the template html and the react html
+    // finally combine all parts together
 
-    const renderedHtml = staticHtmlContent.replace(`<div id="root"></div>`, `<div id="root">${reactContent}</div>`);
+    const renderedHtml = buildHtml(staticHtmlContent, reactContent, styleTags, dataElement);
 
     return renderedHtml;
+}
+
+
+function buildHtml(templateHtml: string, reactHtml: string, styleTags: string, dataTag: string) {
+    
+    const pattern = /(?<head><head>)|(?<root><div\sid="root">)/g;
+    
+    return templateHtml.replace(pattern, (match, ...params: any[]) => {
+        const groups = params.pop();
+
+        if (groups.head) return groups.head + styleTags;
+        if (groups.root) return dataTag + groups.root + reactHtml;
+
+        return match;
+    });
+
+}
+
+function renderToStringWithStyles(component: JSX.Element) {
+    const sheet = new ServerStyleSheet();
+    try {
+        const reactHtml = renderToString(sheet.collectStyles(component))
+        const styleTags = sheet.getStyleTags();
+        return [reactHtml, styleTags]
+    }
+    finally {
+        sheet.seal();
+    }
 }

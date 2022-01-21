@@ -1,8 +1,8 @@
 import { createServer } from "server/server";
-import configuration from "server/configuration";
+import { PORT } from "server/configuration";
 
 const server = createServer();
 
-server.listen(configuration.port, () => {
-    console.log(`Server listening to port ${configuration.port}`);
+server.listen(PORT, () => {
+    console.log(`Server listening to port ${PORT}`);
 });

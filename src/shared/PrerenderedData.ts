@@ -13,15 +13,13 @@ namespace PrerenderData {
      * In the server side, saves an abitrary object into the dom. This data can be retrieved in the client.
      * @param data An object or any data you want to pass down to the client.
      * @param domString The html string that will be rendered in the client.
-     * @returns A new html string with the injected data.
+     * @returns A new html tag string containing the injected data.
      */
-    export function saveToDom(data: unknown, domString: string):string {
+    export function saveToDom(data: unknown):string {
         
-        const jsonData = `<script>window.prerenderData = ${JSON.stringify(data)};</script>`;
+        const jsonDataElement = `<script>window.prerenderData = ${JSON.stringify(data)};</script>`;
         
-        var newDomString = domString.replace(/(<body.*>)/, "$1" + jsonData);
-        
-        return newDomString;
+        return jsonDataElement;
     }
 
     /**

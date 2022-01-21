@@ -1,5 +1,5 @@
 {
-  "exclude": ["node_modules", "tests"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",

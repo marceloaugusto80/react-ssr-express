@@ -24,7 +24,8 @@ describe("PrerenderData", () => {
             }
         };
     
-        const html = PrerenderData.saveToDom(expected, getHtml());
+        const dataTag = PrerenderData.saveToDom(expected);
+        const html = getHtml().replace("<body>", "<body>" + dataTag);
         globalThis.window = new JSDOM(html, {
             runScripts: "dangerously"
         }).window as unknown as (Window & typeof globalThis);

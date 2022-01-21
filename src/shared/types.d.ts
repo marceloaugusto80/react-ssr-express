@@ -18,7 +18,7 @@ declare namespace NodeJS {
             /** The port the server will be listening to. */
             PORT?: number | string;
             /** Absolute path to the public directory where static the files will be served */
-            PUBLIC_DIR?: string;
+            PUBLIC_DIR_PATH?: string;
             /** Absolute path to the html template file witch will be used by the react ssr */
             HTML_TEMPLATE_PATH: string;
         }
